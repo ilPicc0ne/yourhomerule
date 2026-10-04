@@ -337,3 +337,7 @@ Teach handoff (#137) completed through #129: locked 107-word script, corrected e
 - Tagline: Dimitar may still argue for the provocative line, "Your landlord has a lawyer. You have the law."
 
 Combined #128 validation (04.10.2026): `make check` passed with 120 Python tests, 500/500 bundled endpoint parity, zero engine/eval differences, T1–T5 and the ingestion rehearsal. Web tests: 302 passed, 5 skipped; TypeScript and changed-file lint passed. Coverage remains 23/24 tuning and 16/16 holdout; assertions 26/27, scored quotes 54/54. Flat-value checks are 1/3 and 1/2 because unresolved deposits now carry conditional amounts; expectations were not weakened. The evidence-date guard is tested, and its dataset projection was regenerated. Hosted verification remains pending before production; its pre-merge requirement was explicitly waived by Dimitar after Silvan approved the tested commit.
+
+### Public build reproducibility
+
+Public checkouts rebuild from committed intermediates plus `out/build_inputs.json` (corpus document IDs and T1–T5 scenario inputs, without source text or expected answers). The engine prefers the original starter files when present. `python3 -m engine.build_inputs` refreshes this metadata from the original pack. The starter pack is included at `data/realpage-starter/` at Dimitar's request. `make eval` and `make check` use that pack; a successful build alone does not independently verify source quotes.

@@ -25,7 +25,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TESTS = ROOT / "data" / "realpage-starter" / "dev" / "change_tests.json"
+from engine.build_inputs import change_tests
 DEMO_LABEL = "Demo: fictional ordinance"
 RULE_FIELDS = ("title", "citation", "requirement_quote", "source_url", "jurisdiction_id", "category",
                "document_status", "origin")
@@ -73,7 +73,7 @@ def diff_lookups(before_full, after_full, rules_by_id):
 
 def as_of_tests():
     """The brief's as_of change tests (T1, T3): the dates the demo and the scored file care about."""
-    return [t for t in json.loads(TESTS.read_text(encoding="utf-8")) if t["type"] == "as_of"]
+    return [t for t in change_tests() if t["type"] == "as_of"]
 
 
 def source(sid, kind, title, before_rules, after_rules, addresses, d0, d1, cache=None, document=None, demo=False,

@@ -318,9 +318,8 @@ class Journeys(unittest.TestCase):
 
 class ScoredRules(unittest.TestCase):
     def test_source_doc_id_is_a_manifest_doc_or_null(self):
-        import csv
-        from extract import config
-        corpus = {row["doc_id"] for row in csv.DictReader(open(config.MANIFEST, encoding="utf-8"))}
+        from engine.build_inputs import corpus_doc_ids
+        corpus = corpus_doc_ids()
         src = {r["team_rule_id"]: r for r in json.loads((R.OUT / "rules.json").read_text())["rules"]}
         out = json.loads((built()[2] / "rules.json").read_text())["rules"]
         self.assertEqual(sorted(src), sorted(r["team_rule_id"] for r in out))

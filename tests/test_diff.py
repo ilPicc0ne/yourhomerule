@@ -41,7 +41,7 @@ def test_rule(eff_from="2027-03-01", unit="XTEST"):
 
 
 def mapped(test_id):
-    t = next(t for t in json.loads(D.TESTS.read_text()) if t["test_id"] == test_id)
+    t = next(t for t in D.change_tests() if t["test_id"] == test_id)
     return t, [i for k in t["rule_ids"] for i in CH.map_key_id(k, RULES, FINDINGS)[0]]
 
 

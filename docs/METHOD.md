@@ -39,7 +39,7 @@ its request hash; each rule's audit trail shows quote, checks, gate answers and 
 
 **Evaluation** (`make check`, every change): brief-named rules 26/27 (the miss, Santa Ana, has no text in the
 corpus and is recorded as a finding); change tests T1–T5 pass, a new-ordinance rehearsal (fictional text) 45/45 addresses; address
-questions 24/24 on the tuning set and 16/16 on a held-out set never used for tuning; scored quotes 100% verbatim.
+questions 23/24 on the tuning set and 16/16 on a held-out set never used for tuning; scored quotes 100% verbatim.
 Prompts are linted (no test-suite value may appear in a prompt) and frozen by hash.
 
 **Limits.** Fresh re-extractions score lower than the shipped one (tuning 20–24/24, held-out 14–16/16): which

@@ -144,9 +144,8 @@ def rules_json():
     """The scored rules.json: out/rules.json, with source_doc_id null for a source outside corpus_manifest.csv (the
     schema's doc_id field). Such a rule (an official text we saved, e.g. a city ordinance the manifest lists as link
     only) keeps its source_url and verbatim quote; it doesn't count toward the citation metric (organizers, 04.10.)."""
-    import csv
-    from extract import config
-    corpus = {row["doc_id"] for row in csv.DictReader(open(config.MANIFEST, encoding="utf-8"))}
+    from engine.build_inputs import corpus_doc_ids
+    corpus = corpus_doc_ids()
     recs = json.loads((R.OUT / "rules.json").read_text(encoding="utf-8"))
     for r in recs["rules"]:
         if r.get("source_doc_id") not in corpus:
@@ -179,7 +178,8 @@ def full_json(full, rules, addresses, findings, as_of):
 def changes(rules, findings, addresses):
     """changes.json via extract/changes.py, driven with I3 facts and the same evaluator."""
     from extract import changes as CH
-    tests = json.loads(Path(ROOT / "data" / "realpage-starter" / "dev" / "change_tests.json").read_text(encoding="utf-8"))
+    from engine.build_inputs import change_tests
+    tests = change_tests()
     base = [r for r in rules if r["origin"] != "ingested"]
     ingested = [r for r in rules if r["origin"] == "ingested"]
     if ingested:    # T6: the hour-16 document, compared at the day after its effective date

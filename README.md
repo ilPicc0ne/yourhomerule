@@ -35,19 +35,19 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · method and evaluation: 
 
 ## Evaluation
 
-From [docs/METHOD.md](docs/METHOD.md) (`make check`): brief-named rules 26/27 (the miss, Santa Ana, has no text in the corpus and is recorded as a finding); change tests T1–T5 pass; a new-ordinance rehearsal on fictional text 45/45 addresses; address questions 24/24 on the tuning set and 16/16 on a held-out set never used for tuning; scored quotes 100% verbatim. Limits are listed in the same file.
+From [docs/METHOD.md](docs/METHOD.md) (`make check`): brief-named rules 26/27 (the miss, Santa Ana, has no text in the corpus and is recorded as a finding); change tests T1–T5 pass; a new-ordinance rehearsal on fictional text 45/45 addresses; address questions 23/24 on the tuning set and 16/16 on a held-out set never used for tuning; scored quotes 100% verbatim. Limits are listed in the same file.
 
 ## Run it
 
 ```bash
 make build      # engine -> outputs/*.json from the committed rules and resolved addresses
-make eval       # assertions, change tests, quote check, disclaimer crawl
+make eval       # uses the included starter pack for independent quote verification
 make test       # engine unit tests
 
 cd web && npm ci && npm run dev   # the website and MCP route on localhost:3000
 ```
 
-The RealPage starter pack is not included (its licence is set by the organizers). The website (`web/`) builds and runs without it. The engine targets (`make build`, `make test`, `make eval`) read the corpus manifest and need the pack placed at `data/realpage-starter/`, plus Python 3 with PyYAML.
+The RealPage starter pack is included at `data/realpage-starter/`; its own notices and terms apply separately from the repository code license. `make build` recomputes results from the committed intermediates and the pack metadata. It can also run without the pack using `out/build_inputs.json` (document IDs and change scenarios, no expected answers). Refresh that fallback with `python3 -m engine.build_inputs` when the pack changes. Full extraction and evaluation use the included pack; extraction also needs model credentials.
 
 ## Repository layout
 
